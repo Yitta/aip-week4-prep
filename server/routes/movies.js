@@ -5,7 +5,7 @@ const router = express.Router();
 
 function getMovieById(id) {
   return moviesJson.filter((movie) => {
-    return movie.id = id;
+    return movie.id == id;
   })[0];
 }
 
