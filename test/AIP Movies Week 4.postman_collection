@@ -8,7 +8,7 @@
 	},
 	"item": [
 		{
-			"name": "GET localhost:3000/api/movies",
+			"name": "Get all movies",
 			"event": [
 				{
 					"listen": "test",
@@ -40,7 +40,7 @@
 			"response": []
 		},
 		{
-			"name": "POST localhost:3000/api/movies",
+			"name": "Create a movie",
 			"event": [
 				{
 					"listen": "test",
@@ -48,10 +48,11 @@
 						"type": "text/javascript",
 						"exec": [
 							"var jsonData = JSON.parse(responseBody);",
-							"tests[\"movie with title 'Test' is present\"] = (jsonData.title === \"Test Movie\");",
-							"tests[\"movie date is '2017-08-08'\"] = (jsonData.releaseDate === \"2017-08-08\");",
-							"tests[\"movie duration is 120\"] = (jsonData.duration === 120);",
-							"tests[\"movie synopsis is correct\"] = (jsonData.synopsis === \"This is a test.\");"
+							"tests[\"movie with title 'Test' is present\"] = jsonData.title === \"Test Movie\";",
+							"tests[\"movie date is '2017-08-08'\"] = jsonData.releaseDate === \"2017-08-08\";",
+							"tests[\"movie duration is 120\"] = jsonData.duration === 120;",
+							"tests[\"movie synopsis is correct\"] = jsonData.synopsis === \"This is a test.\";",
+							"tests[\"movie genres are correct\"] = jsonData.genre[0] === \"action\" && jsonData.genre.length === 3;"
 						]
 					}
 				}
@@ -68,14 +69,14 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"title\": \"Test Movie\",\n\t\"releaseDate\": \"2017-08-08\",\n\t\"duration\": 120,\n\t\"synopsis\": \"This is a test.\"\n}"
+					"raw": "{\n\t\"title\": \"Test Movie\",\n\t\"releaseDate\": \"2017-08-08\",\n\t\"duration\": 120,\n\t\"synopsis\": \"This is a test.\",\n\t\"genre\": [\"action\",\"adventure\",\"comedy\"]\n}"
 				},
 				"description": ""
 			},
 			"response": []
 		},
 		{
-			"name": "GET localhost:3000/api/movies/1",
+			"name": "Get the movie with id 1",
 			"event": [
 				{
 					"listen": "test",
@@ -107,7 +108,7 @@
 			"response": []
 		},
 		{
-			"name": "PUT localhost:3000/api/movies/1",
+			"name": "Edit the movie with id 1",
 			"event": [
 				{
 					"listen": "test",
@@ -116,7 +117,8 @@
 						"exec": [
 							"var jsonData = JSON.parse(responseBody);",
 							"tests[\"movie id is correct\"] = jsonData.id === 1;",
-							"tests[\"movie synopsis has changed to correct value\"] = jsonData.synopsis === \"This has been changed.\""
+							"tests[\"movie synopsis has changed to correct value\"] = jsonData.synopsis === \"This has been changed.\"",
+							"tests[\"movie genres are correct values\"] = jsonData.genres[0] === \"test\" && jsonData.genres[1] === \"genre\""
 						]
 					}
 				}
@@ -133,14 +135,14 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"title\":\"Dunkirk\",\n\t\"releaseDate\":\"2017-07-21\",\n\t\"duration\":106,\n\t\"synopsis\":\"This has been changed.\"\n}"
+					"raw": "{\n\t\"title\":\"Dunkirk\",\n\t\"releaseDate\":\"2017-07-21\",\n\t\"duration\":106,\n\t\"synopsis\":\"This has been changed.\",\n\t\"genre\": [\"test\", \"genre\"]\n}"
 				},
 				"description": ""
 			},
 			"response": []
 		},
 		{
-			"name": "Revert PUT",
+			"name": "Revert edit",
 			"event": [
 				{
 					"listen": "test",
@@ -149,7 +151,8 @@
 						"exec": [
 							"var jsonData = JSON.parse(responseBody);",
 							"tests[\"movie id is correct\"] = jsonData.id === 1;",
-							"tests[\"movie synopsis is new value\"] = jsonData.synopsis === \"The film depicts the dramatic and true story of the Dunkirk evacuations from a war torn beach and harbour in France, following the seemingly doomed plight of allied soldiers in World War II. As the enemy forces close in it seems the troops have nowhere to go, but help is at hand and a fierce battle ensues.\""
+							"tests[\"movie synopsis is updated\"] = jsonData.synopsis === \"The film depicts the dramatic and true story of the Dunkirk evacuations from a war torn beach and harbour in France, following the seemingly doomed plight of allied soldiers in World War II. As the enemy forces close in it seems the troops have nowhere to go, but help is at hand and a fierce battle ensues.\"",
+							"tests[\"movie genres are updated\"] = jsonData.genre[0] === \"action\" && jsonData.genre.length === 3"
 						]
 					}
 				}
@@ -166,9 +169,9 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"title\":\"Dunkirk\",\n\t\"releaseDate\":\"2017-07-21\",\n\t\"duration\":106,\n\t\"synopsis\":\"The film depicts the dramatic and true story of the Dunkirk evacuations from a war torn beach and harbour in France, following the seemingly doomed plight of allied soldiers in World War II. As the enemy forces close in it seems the troops have nowhere to go, but help is at hand and a fierce battle ensues.\"\n}"
+					"raw": "{\n\t\"title\":\"Dunkirk\",\n\t\"releaseDate\":\"2017-07-21\",\n\t\"duration\":106,\n\t\"synopsis\":\"The film depicts the dramatic and true story of the Dunkirk evacuations from a war torn beach and harbour in France, following the seemingly doomed plight of allied soldiers in World War II. As the enemy forces close in it seems the troops have nowhere to go, but help is at hand and a fierce battle ensues.\",\n\t\"genre\": [\"action\", \"drama\", \"history\"]\n}"
 				},
-				"description": ""
+				"description": "Resets the movie with details from original data seed"
 			},
 			"response": []
 		}
