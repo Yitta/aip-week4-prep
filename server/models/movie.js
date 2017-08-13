@@ -15,12 +15,17 @@ module.exports = (sequelize, DataTypes) => {
     },
     synopsis: {
       type: DataTypes.TEXT('long')
+    },
+    genre: {
+      type: DataTypes.STRING,
+      get: function () {
+        return this.getDataValue('genre').split(',');
+      },
+      set: function (genres) {
+        this.setDataValue('genre', genres.join(','))
+      }
     }
   });
-
-  movie.associate = (models) => {
-    models.movie.belongsToMany(models.genre, { through: 'movieGenre', timestamps: false });
-  }
 
   return movie;
 }

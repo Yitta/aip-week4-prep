@@ -6,13 +6,9 @@ const router = express.Router();
 /* GET all of the movies. */
 router.get('/', (req, res) => {
   models.movie
-    .findAll({
-      include: [{
-        model: models.genre
-      }]
-    })
+    .findAll()
     .then((movies) => {
-      res.json(movies);
+      res.json({ movies: movies });
     });
 });
 
@@ -23,7 +19,8 @@ router.post('/', (req, res) => {
       title: req.body.title,
       releaseDate: req.body.releaseDate,
       duration: req.body.duration,
-      synopsis: req.body.synopsis
+      synopsis: req.body.synopsis,
+      genre: req.body.genre
     })
     .then((movies) => {
       res.json(movies);
@@ -46,7 +43,8 @@ router.put('/:id', (req, res) => {
       title: req.body.title,
       releaseDate: req.body.releaseDate,
       duration: req.body.duration,
-      synopsis: req.body.synopsis
+      synopsis: req.body.synopsis,
+      genre: req.body.genre
     }, {
       where: { id: req.params.id }
     })

@@ -1,0 +1,176 @@
+{
+	"variables": [],
+	"info": {
+		"name": "AIP Movies Week 4",
+		"_postman_id": "66a8e86f-e0d1-50ab-dcad-7e3a2c07ca30",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET localhost:3000/api/movies",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"movies is present\"] = jsonData.movies.length;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "localhost:3000/api/movies",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"title\": \"Test Movie\",\n\t\"releaseDate\": \"2017-08-08\",\n\t\"duration\": 120,\n\t\"synopsis\": \"This is a test.\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "POST localhost:3000/api/movies",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"movie with title 'Test' is present\"] = (jsonData.title === \"Test Movie\");",
+							"tests[\"movie date is '2017-08-08'\"] = (jsonData.releaseDate === \"2017-08-08\");",
+							"tests[\"movie duration is 120\"] = (jsonData.duration === 120);",
+							"tests[\"movie synopsis is correct\"] = (jsonData.synopsis === \"This is a test.\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "localhost:3000/api/movies",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"title\": \"Test Movie\",\n\t\"releaseDate\": \"2017-08-08\",\n\t\"duration\": 120,\n\t\"synopsis\": \"This is a test.\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET localhost:3000/api/movies/1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"movie id is correct\"] = jsonData.id === 1;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "localhost:3000/api/movies/1",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "PUT localhost:3000/api/movies/1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"movie id is correct\"] = jsonData.id === 1;",
+							"tests[\"movie synopsis has changed to correct value\"] = jsonData.synopsis === \"This has been changed.\""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "localhost:3000/api/movies/1",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"title\":\"Dunkirk\",\n\t\"releaseDate\":\"2017-07-21\",\n\t\"duration\":106,\n\t\"synopsis\":\"This has been changed.\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Revert PUT",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"movie id is correct\"] = jsonData.id === 1;",
+							"tests[\"movie synopsis is new value\"] = jsonData.synopsis === \"The film depicts the dramatic and true story of the Dunkirk evacuations from a war torn beach and harbour in France, following the seemingly doomed plight of allied soldiers in World War II. As the enemy forces close in it seems the troops have nowhere to go, but help is at hand and a fierce battle ensues.\""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "localhost:3000/api/movies/1",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"title\":\"Dunkirk\",\n\t\"releaseDate\":\"2017-07-21\",\n\t\"duration\":106,\n\t\"synopsis\":\"The film depicts the dramatic and true story of the Dunkirk evacuations from a war torn beach and harbour in France, following the seemingly doomed plight of allied soldiers in World War II. As the enemy forces close in it seems the troops have nowhere to go, but help is at hand and a fierce battle ensues.\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
