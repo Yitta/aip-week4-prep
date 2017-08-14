@@ -9,6 +9,8 @@ import { MoviesService} from '../movies.service';
 export class MoviesComponent implements OnInit {
   movies: any = [];
   activeMovie;
+  editingMovie;
+  editing: boolean = false;
 
   constructor(private moviesService: MoviesService) { }
 
@@ -19,12 +21,21 @@ export class MoviesComponent implements OnInit {
   }
 
   selectMovie(movie) {
+    this.editing = false;
+    this.editingMovie = null;
     this.activeMovie = movie;
     console.log(this.activeMovie);
   }
 
+  editMovie() {
+    this.editingMovie = this.activeMovie;
+    this.editing = true;
+  }
+
   saveMovie(movie) {
     this.moviesService.saveMovie(movie).subscribe(movies => {
+      this.editing = false;
+      this.editingMovie = null;
       this.movies = movies;
     });
   }
