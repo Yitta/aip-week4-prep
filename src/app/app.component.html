@@ -16,7 +16,7 @@
     <ul class="list-group users-list">
     <li class="list-group-item"  *ngFor="let movie of movies" (click)="selectMovie(movie)"
       [class.active]="movie === activeMovie">
-       {{ movie.title}}
+       {{ movie.data.title }}
     </li>
   </ul>
   </div>
@@ -29,34 +29,63 @@
         <thead>
           <tr>
             <th>Title</th>
-            <th ref="u1">{{ activeMovie.title }}</th>
-            <input class="form-control" [(ngModel)]="activeMovie.title">
+            <th ref="u1">{{ activeMovie.data.title }}</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>Release date </td>
-            <td ref="u2">{{ activeMovie.data}}</td>
-            <input class="form-control" [(ngModel)]="activeMovie.data">
+            <td>Release date</td>
+            <td ref="u2">{{ activeMovie.data.releaseDate}}</td>
           </tr>
           <tr>
             <td>Duration</td>
-            <td ref="u3">{{ activeMovie.duration}}</td>
-            <input class="form-control" [(ngModel)]="activeMovie.duration">
+            <td ref="u3">{{ activeMovie.data.duration}}</td>
           </tr>
           <tr>
             <td>Genre</td>
-            <td ref="u4">{{ activeMovie.genre}}</td>
-            <input class="form-control" [(ngModel)]="activeMovie.genre">
+            <td ref="u4">{{ activeMovie.data.genre}}</td>
           </tr>
           <tr>
             <td>Synopsis</td>
-            <td ref="u5">{{ activeMovie.synopsis}}</td>
-            <textarea class="form-control" [(ngModel)]="activeMovie.synopsis"></textarea>
+            <td ref="u5">{{ activeMovie.data.synopsis}}</td>
           </tr>
         </tbody>
       </table>
     </div>
   </div>
 </div>
+
+<div class="container" *ngIf="activeMovie">
+    <div class="container">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Title</th>
+            
+            <input class="form-control" [(ngModel)]="activeMovie.data.title">
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Release date</td>
+            
+            <input class="form-control" [(ngModel)]="activeMovie.data.releaseDate">
+          </tr>
+          <tr>
+            <td>Duration</td>
+            <input class="form-control" [(ngModel)]="activeMovie.data.duration">
+          </tr>
+          <tr>
+            <td>Genre</td>
+            <input class="form-control" [(ngModel)]="activeMovie.data.genre">
+          </tr>
+          <tr>
+            <td>Synopsis</td>
+            <textarea class="form-control" [(ngModel)]="activeMovie.data.synopsis"></textarea>
+          </tr>
+        </tbody>
+        <button type="submit" class="btn btn-primary">Save</button>
+      </table>
+    </div>
+  </div>
 
