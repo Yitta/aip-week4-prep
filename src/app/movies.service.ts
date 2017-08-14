@@ -13,7 +13,7 @@ export class MoviesService {
   }
 
   saveMovie(movie) {
-    return this.http.put(`/api/movie/${movie.id}`, movie)
+    return this.http.put(`/api/movies/${movie.id}`, movie)
       .map(res => res.json());
   }
 
