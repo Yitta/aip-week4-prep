@@ -27,15 +27,10 @@ const mysqlDb = mysql.createConnection({
   password: null
 });
 mysqlDb.connect((err) => {
-  console.log("Connected");
   mysqlDb.query('CREATE DATABASE IF NOT EXISTS aip_movies', (err, result) => {
     if (err) throw err;
     models.sequelize.sync().then(() => {
-      console.log('Database created!');
-      sequelizeFixtures.loadFile('./server/data/*.json', models)
-        .then(() => {
-          console.log('Database seeded.');
-        })
+      sequelizeFixtures.loadFile('./server/data/*.json', models);
     });
   });
 });

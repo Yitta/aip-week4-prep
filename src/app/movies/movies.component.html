@@ -1,0 +1,74 @@
+<div class="col-sm-4">
+  <div *ngIf="movies">
+    <ul class="list-group users-list">
+      <li class="list-group-item" *ngFor="let movie of movies" (click)="selectMovie(movie)" [class.active]="movie === activeMovie">
+        {{ movie.title }}
+      </li>
+    </ul>
+  </div>
+</div>
+
+ <div class="col-sm-8">
+  <div class="jumbotron" *ngIf="activeMovie">
+    <div class="container">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th ref="u1">{{ activeMovie.title }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Release date</td>
+            <td ref="u2">{{ activeMovie.releaseDate}}</td>
+          </tr>
+          <tr>
+            <td>Duration</td>
+            <td ref="u3">{{ activeMovie.duration}}</td>
+          </tr>
+          <tr>
+            <td>Genre</td>
+            <td ref="u4">{{ activeMovie.genre}}</td>
+          </tr>
+          <tr>
+            <td>Synopsis</td>
+            <td ref="u5">{{ activeMovie.synopsis}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="container" *ngIf="activeMovie">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Title</th>
+
+          <input class="form-control" [(ngModel)]="activeMovie.title">
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Release date</td>
+
+          <input class="form-control" [(ngModel)]="activeMovie.releaseDate">
+        </tr>
+        <tr>
+          <td>Duration</td>
+          <input class="form-control" [(ngModel)]="activeMovie.duration">
+        </tr>
+        <tr>
+          <td>Genre</td>
+          <input class="form-control" [(ngModel)]="activeMovie.genre">
+        </tr>
+        <tr>
+          <td>Synopsis</td>
+          <textarea class="form-control" [(ngModel)]="activeMovie.synopsis"></textarea>
+        </tr>
+      </tbody>
+      <button type="submit" (click)="selectMovie(activeMovie)" class="btn btn-primary">Save</button>
+    </table>
+</div> 
