@@ -15,60 +15,37 @@
         <thead>
           <tr>
             <th>Title</th>
-            <th ref="u1">{{ activeMovie.title }}</th>
+            <th *ngIf="!editing" ref="u1">{{ activeMovie.title }}</th>
+            <input *ngIf="editing" class="form-control" [(ngModel)]="editingMovie.title">
           </tr>
         </thead>
         <tbody>
           <tr>
             <td>Release date</td>
-            <td ref="u2">{{ activeMovie.releaseDate}}</td>
+            <td *ngIf="!editing" ref="u2">{{ activeMovie.releaseDate}}</td>
+            <input *ngIf="editing" class="form-control" [(ngModel)]="editingMovie.releaseDate">
           </tr>
           <tr>
             <td>Duration</td>
-            <td ref="u3">{{ activeMovie.duration}}</td>
+            <td *ngIf="!editing" ref="u3">{{ activeMovie.duration}}</td>
+            <input *ngIf="editing" class="form-control" [(ngModel)]="editingMovie.duration">
           </tr>
           <tr>
             <td>Genre</td>
-            <td ref="u4">{{ activeMovie.genre}}</td>
+            <td *ngIf="!editing" ref="u4">{{ activeMovie.genre}}</td>
+            <input *ngIf="editing" class="form-control" [(ngModel)]="editingMovie.genre">
           </tr>
           <tr>
             <td>Synopsis</td>
-            <td ref="u5">{{ activeMovie.synopsis}}</td>
+            <td *ngIf="!editing" ref="u5">{{ activeMovie.synopsis}}</td>
+            <textarea *ngIf="editing" class="form-control" [(ngModel)]="editingMovie.synopsis"></textarea>
+          </tr>
+          <tr>
+            <button *ngIf="!editing" type="button" (click)="editMovie()" class="btn btn-primary">Edit</button>
+            <button *ngIf="editing" type="submit" (click)="saveMovie(editingMovie)" class="btn btn-primary">Save</button>
           </tr>
         </tbody>
       </table>
     </div>
   </div>
 </div>
-
-<div class="container" *ngIf="activeMovie">
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Title</th>
-
-          <input class="form-control" [(ngModel)]="activeMovie.title">
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Release date</td>
-
-          <input class="form-control" [(ngModel)]="activeMovie.releaseDate">
-        </tr>
-        <tr>
-          <td>Duration</td>
-          <input class="form-control" [(ngModel)]="activeMovie.duration">
-        </tr>
-        <tr>
-          <td>Genre</td>
-          <input class="form-control" [(ngModel)]="activeMovie.genre">
-        </tr>
-        <tr>
-          <td>Synopsis</td>
-          <textarea class="form-control" [(ngModel)]="activeMovie.synopsis"></textarea>
-        </tr>
-      </tbody>
-      <button type="submit" (click)="saveMovie(activeMovie)" class="btn btn-primary">Save</button>
-    </table>
-</div> 
